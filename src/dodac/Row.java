@@ -8,6 +8,7 @@ import java.util.List;
 
 public class Row implements Iterable<Integer> {
 
+	private static final String RJ4 = "%4s";
 	private static final String TAB = "\t";
 	private static final String[] NOTE_NAMES = {"C","C#","D","D#","E","F","F#","G","G#","A","Bb","B"};
 
@@ -24,7 +25,7 @@ public class Row implements Iterable<Integer> {
 	public String printNoteNames() {
 		StringBuffer sb = new StringBuffer();
 		for(int i : tones) {
-			sb.append(String.format("%4s",NOTE_NAMES[i])).append(TAB);
+			sb.append(String.format(RJ4,NOTE_NAMES[i])).append(TAB);
 		}
 
 		return sb.toString();
@@ -63,7 +64,7 @@ public class Row implements Iterable<Integer> {
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
 		for(int i : tones) {
-			sb.append(String.format("%4s",i)).append(TAB);
+			sb.append(String.format(RJ4,i)).append(TAB);
 		}
 
 		return sb.toString();

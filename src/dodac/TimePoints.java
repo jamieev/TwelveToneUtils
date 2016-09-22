@@ -10,7 +10,6 @@ public class TimePoints  {
 		//zero the row
 		Integer[] zeroed = Utils.transposeArray(tones, 12-tones[0]);
 
-
 		points = new int[zeroed.length];
 		durations = new int[zeroed.length];
 		
