@@ -38,7 +38,7 @@ public class Row implements Iterable<Integer> {
 			if(tones[x] == 0) {
 				i[x] = 0;
 			} else {
-				i[x] = tones.length-tones[x];
+				i[x] = 12-tones[x];
 			}
 		}		
 		return new Row(i);
@@ -86,5 +86,27 @@ public class Row implements Iterable<Integer> {
 
 	public TimePoints getTimePoints() {
 		return timePoints;
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + Arrays.hashCode(tones);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Row other = (Row) obj;
+		if (!Arrays.equals(tones, other.tones))
+			return false;
+		return true;
 	}
 }

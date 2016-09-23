@@ -19,9 +19,9 @@ public class Utils {
 		Integer[] tr = new Integer[tones.length];
 
 		for(int x = 0; x < tones.length; x++) {
-			tr[x] = (tones[x] + t) % tones.length;
+			tr[x] = (tones[x] + t) % 12;
 		}
-	
+
 		return tr;
 	}
 }
