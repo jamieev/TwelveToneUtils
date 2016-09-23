@@ -1,44 +1,64 @@
 package dodac;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TwelveTone {
 	
-	private static final String USAGE = "Usage: TwelveTone + a twelve tone array args ";
 	private static final String TAB = "\t";
 	
 	public static void main(String[] args) {
-		if(args.length<0 || args.length > 12) {
-			System.out.println(USAGE);
-			System.exit(0);
+		//All info is output by default. Outputs can be optionally suppressed
+		boolean suppressRow = false;
+		boolean suppressTimepoints = false;
+		boolean suppressMatrix = false;
+		boolean suppressNotation = false;
+		List<Integer> inputTones = new ArrayList<Integer>();
+		for(String s : args) {
+			switch(s) {
+			case "-r" : suppressRow = true;
+			break;
+			case "-t" : suppressTimepoints = true;
+			break;
+			case "-m" : suppressMatrix = true;
+			break;
+			case "-n" : suppressNotation = true;
+			break;
+			default: inputTones.add(Integer.parseInt(s));//assume it's an integer - otherwise exception
+			}
 		}
 		Row row = null;
 		try {
-			if(args.length > 0) {
-				Integer[] inputTones = new Integer[args.length];
-				for(int x = 0;x < args.length;x++) {
-					inputTones[x] = Integer.parseInt(args[x]);
-				}
-				row = new Row(inputTones);
+			//check if tones have been input on the command line, else generate a random set
+			if(inputTones.size() > 0) {
+				row = new Row(inputTones.toArray(new Integer[inputTones.size()]));
 			} else {
 				row = new Row(Utils.generateTones());
 			}
-			//Row row = new Row(tones);
-			System.out.println("ROW P: ");
-			System.out.println(row.toString());
-			System.out.println(row.printNoteNames());
-			System.out.println("ROW I: ");
-			System.out.println(row.invert().toString());
-			System.out.println(row.invert().printNoteNames());
-			System.out.println("Timepoints: P, I, R, RI:");
-
-			System.out.println(row.getTimePoints());
-			System.out.println(row.invert().getTimePoints());
-			System.out.println(row.retrograde().getTimePoints());
-			System.out.println(row.invert().retrograde().getTimePoints());
-			
-			System.out.println("\n\nMatrix:");
-			printMatrix(row);
-			JMus jMus = new JMus();
-			jMus.notateRow(row);
+			if (!suppressRow) {
+				//Row row = new Row(tones);
+				System.out.println("ROW P: ");
+				System.out.println(row.toString());
+				System.out.println(row.printNoteNames());
+				System.out.println("ROW I: ");
+				System.out.println(row.invert().toString());
+				System.out.println(row.invert().printNoteNames());
+				System.out.println("Timepoints: P, I, R, RI:");
+			}
+			if (!suppressTimepoints) {
+				System.out.println(row.getTimePoints());
+				System.out.println(row.invert().getTimePoints());
+				System.out.println(row.retrograde().getTimePoints());
+				System.out.println(row.invert().retrograde().getTimePoints());
+			}
+			if (!suppressMatrix) {
+				System.out.println("\n\nMatrix:");
+				printMatrix(row);
+			}
+			if (!suppressNotation) {
+				JMus jMus = new JMus();
+				jMus.notateRow(row);
+			}
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
