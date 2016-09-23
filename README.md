@@ -13,4 +13,4 @@ options:
 <p> -n suppress timepoint notation output
 <p> -t suppress timepoing output
 
-NB: for the moment timepoint output only works for 12 note rows, and  modulus is always 12.
+NB: for the moment, timepoint output only works for 12 note rows, and  modulus is always 12.
